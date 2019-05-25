@@ -20,6 +20,7 @@ InventoryApp inspired by the Udacity Android Basics Nanodegree. Rewritten in Kot
 
 
 ### Screenshots
-![image](https://user-images.githubusercontent.com/25232443/58365265-e5c21300-7ec1-11e9-9a1a-4a12c0ebae6a.jpg)
+![image](https://user-images.githubusercontent.com/25232443/58365389-3dfa1480-7ec4-11e9-9aa2-2e9c086cd96e.jpg)
+
 
 
