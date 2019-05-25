@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+
+    <data>
+        <variable
+                name="product"
+                type="com.artf.inventoryapp.database.InventoryProduct"/>
+
+        <variable
+                name="clickListener"
+                type="com.artf.inventoryapp.inventoryTracker.InventoryListener"/>
+
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:onClick="@{() -> clickListener.onClick(product)}">
+
+        <LinearLayout
+                android:id="@+id/info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/productName"
+                    android:text="@{product.productName}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+            <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/current_quantity"
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:id="@+id/currentQuantity"
+                        app:productQuantity="@{product}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="end"
+                        android:gravity="start"
+                        android:maxLines="1"
+                        android:textSize="14sp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/price"
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:id="@+id/price"
+                        app:productPrice="@{product}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="end"
+                        android:gravity="start"
+                        android:maxLines="1"
+                        android:textSize="14sp"/>
+            </GridLayout>
+
+        </LinearLayout>
+
+        <Button
+                android:id="@+id/soldButton"
+                android:onClick="@{() -> clickListener.onClickSold(product)}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_picker"
+                android:text="@string/sold"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+                name="inventoryDetailViewModel"
+                type="com.artf.inventoryapp.inventoryDetail.InventoryDetailViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".inventoryDetail.InventoryDetailFragment">
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:orientation="vertical">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="30dp"
+                                android:background="@color/colorPrimary"
+                                android:orientation="vertical">
+
+                            <ImageView
+                                    android:id="@+id/camera_image"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_margin="4dp"
+                                    android:adjustViewBounds="true"
+                                    android:background="@color/colorDisabled"
+                                    android:contentDescription="@string/product_pic"
+                                    android:gravity="center"
+                                    app:imageUri="@{inventoryDetailViewModel.productImage}"
+                                    app:layout_constraintDimensionRatio="1:1"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/nopic"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                    <Button
+                            android:id="@+id/loadImage"
+                            android:onClick="@{() -> inventoryDetailViewModel.onLoadImage()}"
+                            style="@style/SaveButtonStyle"
+                            android:text="@string/detail_layout_load"/>
+                </LinearLayout>
+
+
+                <TextView
+                        style="@style/CategoryStyle"
+                        android:text="@string/category_name"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <EditText
+                            android:id="@+id/productName"
+                            style="@style/EditStyle"
+                            android:text="@{inventoryDetailViewModel.product.productName}"
+                            android:hint="@string/enter_product_name"
+                            android:onTextChanged="@{inventoryDetailViewModel::onProductNameChanged}"
+                            android:inputType="textCapWords"
+                            />
+
+                    <Button
+                            android:id="@+id/productNameSave"
+                            android:visibility="@{inventoryDetailViewModel.editViewVisibility ? View.VISIBLE : View.GONE}"
+                            android:onClick="@{() -> inventoryDetailViewModel.onSaveDetail(1)}"
+                            style="@style/SaveButtonStyle"/>
+                </LinearLayout>
+
+                <TextView
+                        style="@style/CategoryStyle"
+                        android:text="@string/price"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <EditText
+                            android:id="@+id/productPrice"
+                            style="@style/EditStyle"
+                            android:hint="@string/enter_product_price"
+                            android:onTextChanged="@{inventoryDetailViewModel::onProductPriceChanged}"
+                            android:inputType="numberDecimal"
+                            app:floatTextAdapter="@{inventoryDetailViewModel.product == null ? Float.valueOf(-1) : inventoryDetailViewModel.product.productPrice}"
+                    />
+
+                    <Button
+                            android:id="@+id/productPriceSave"
+                            android:visibility="@{inventoryDetailViewModel.editViewVisibility ? View.VISIBLE : View.GONE}"
+                            android:onClick="@{() -> inventoryDetailViewModel.onSaveDetail(2)}"
+                            style="@style/SaveButtonStyle"/>
+                </LinearLayout>
+
+                <TextView
+                        style="@style/CategoryStyle"
+                        android:text="@string/current_quantity"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <EditText
+                            android:id="@+id/currentQuantity"
+                            style="@style/EditStyle"
+                            android:hint="@string/enter_current_quantity"
+                            android:inputType="number"
+                            android:onTextChanged="@{inventoryDetailViewModel::onProductQuantityChanged}"
+                            app:longTextAdapter="@{inventoryDetailViewModel.product == null ? Long.valueOf(-1) : inventoryDetailViewModel.product.currentQuantity}"
+                    />
+
+                    <Button
+                            android:id="@+id/currentQuantitySave"
+                            android:visibility="@{inventoryDetailViewModel.editViewVisibility ? View.VISIBLE : View.GONE}"
+                            android:onClick="@{() -> inventoryDetailViewModel.onSaveDetail(3)}"
+                            style="@style/SaveButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/editView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{inventoryDetailViewModel.editViewVisibility ? View.VISIBLE : View.GONE}"
+                        android:orientation="vertical">
+
+                    <TextView
+                            style="@style/CategoryStyle"
+                            android:text="@string/sold_quantity"/>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                        <EditText
+                                android:id="@+id/soldQuantity"
+                                style="@style/EditStyle"
+                                android:hint="@string/enter_sold_quantity"
+                                android:inputType="number"
+                                android:text="@string/default_value"
+                                android:onTextChanged="@{inventoryDetailViewModel::onProductSoldQuantityChanged}"
+                                />
+
+                        <Button
+                                android:id="@+id/soldQuantitySave"
+                                android:onClick="@{() -> inventoryDetailViewModel.onSaveDetail(4)}"
+                                style="@style/SaveButtonStyle"/>
+                    </LinearLayout>
+
+                    <TextView
+                            style="@style/CategoryStyle"
+                            android:text="@string/received_quantity"/>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                        <EditText
+                                android:id="@+id/receivedQuantity"
+                                style="@style/EditStyle"
+                                android:hint="@string/enter_received_quantity"
+                                android:inputType="number"
+                                android:text="@string/default_value"
+                                android:onTextChanged="@{inventoryDetailViewModel::onProductReceivedQuantityChanged}"
+                        />
+
+                        <Button
+                                android:id="@+id/receivedQuantitySave"
+                                android:onClick="@{() -> inventoryDetailViewModel.onSaveDetail(5)}"
+                                style="@style/SaveButtonStyle"/>
+                    </LinearLayout>
+
+
+                    <Button
+                            android:id="@+id/orderMore"
+                            style="@style/DeleteButton"
+                            android:onClick="@{() -> inventoryDetailViewModel.onOrderMore()}"
+                            android:text="@string/order_more"/>
+
+                    <Button
+                            android:id="@+id/delete"
+                            style="@style/DeleteButton"
+                            android:onClick="@{() -> inventoryDetailViewModel.onDeleteButtonClick()}"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/delete_the_product"/>
+                </LinearLayout>
+
+                <Button
+                        android:id="@+id/saveNewProduct"
+                        style="@style/DeleteButton"
+                        android:visibility="@{inventoryDetailViewModel.editViewVisibility ? View.GONE : View.VISIBLE}"
+                        android:onClick="@{() -> inventoryDetailViewModel.onSaveNewProduct()}"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/save_new_product"/>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

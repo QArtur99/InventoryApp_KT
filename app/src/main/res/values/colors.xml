@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#388e3c</color>
+    <color name="colorPrimaryDark">#1b5e20</color>
+    <color name="colorAccent">#43a047</color>
+
+    <color name="rippleEffect">#33000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="dark">#212121</color>
+    <color name="soldButton">#e57373</color>
+    <color name="noImageBackground">#eceff1</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="transparent2">#00ffffff</color>
+
+
+    <color name="editorColorPrimary">#2D3640</color>
+    <color name="editorColorPrimaryDark">#394450</color>
+    <color name="colorDisabled">#cccccc</color>
+</resources>

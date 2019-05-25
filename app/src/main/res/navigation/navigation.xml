@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/navigation"
+            app:startDestination="@id/inventory_tracker_fragment">
+
+    <fragment
+            android:id="@+id/inventory_tracker_fragment"
+            android:name="com.artf.inventoryapp.inventoryTracker.InventoryTrackerFragment"
+            android:label="@string/inventory_tracker_fragment"
+    >
+        <action
+                android:id="@+id/action_sleepTrackerFragment_to_sleepQualityFragment"
+                app:destination="@id/inventory_detail_fragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"/>
+        <action android:id="@+id/action_homeFragment_to_detailFragment"
+                app:destination="@id/inventory_detail_fragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/inventory_detail_fragment"
+            android:name="com.artf.inventoryapp.inventoryDetail.InventoryDetailFragment"
+            android:label="@string/inventory_detail_fragment"
+            tools:layout="@layout/fragment_inventory_detail">
+        <argument
+                android:name="visibilityId"
+                app:argType="integer"/>
+        <argument
+                android:name="productId"
+                app:argType="long"/>
+
+        <argument
+                android:name="dialogButtonId"
+                app:argType="integer"/>
+
+        <action
+                android:id="@+id/action_inventoryDetailFragment_to_inventoryTrackerFragment"
+                app:destination="@id/inventory_tracker_fragment"
+                app:popUpTo="@+id/inventory_tracker_fragment"
+                app:popUpToInclusive="true"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"/>
+
+        <action android:id="@+id/action_to_pictureDialogFragment"
+                app:destination="@id/pictureDialogFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"/>
+
+        <action android:id="@+id/action_to_confirmationDialogFragment"
+                app:destination="@id/confirmationDialogFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"/>
+    </fragment>
+
+    <dialog android:id="@+id/pictureDialogFragment"
+              android:name="com.artf.inventoryapp.dialog.PictureDialogFragment"
+              android:label="PictureDialogFragment"
+              tools:layout="@layout/dialog_picture">
+
+        <action android:id="@+id/action_close_dialog"
+                app:destination="@id/inventory_detail_fragment"
+                app:popUpTo="@+id/inventory_detail_fragment"
+                app:popUpToInclusive="true" app:popExitAnim="@anim/nav_default_pop_exit_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:enterAnim="@anim/nav_default_enter_anim"/>
+    </dialog>
+
+    <dialog android:id="@+id/confirmationDialogFragment"
+            android:name="com.artf.inventoryapp.dialog.ConfirmationDialogFragment"
+            android:label="ConfirmationDialogFragment"
+            tools:layout="@layout/dialog_delete">
+
+        <action android:id="@+id/action_close_dialog"
+                app:destination="@id/inventory_detail_fragment"
+                app:popUpTo="@+id/inventory_detail_fragment"
+                app:popUpToInclusive="true" app:popExitAnim="@anim/nav_default_pop_exit_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:enterAnim="@anim/nav_default_enter_anim"/>
+    </dialog>
+
+
+</navigation>

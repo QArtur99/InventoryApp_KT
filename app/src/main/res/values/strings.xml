@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">InventoryApp</string>
+
+    <string name="header_text">Products:</string>
+
+    <string name="empty_view_title_text">No products here …</string>
+    <string name="empty_view_subtitle_text">Get started by adding a product</string>
+    <string name="sold">Sold</string>
+    <string name="current_quantity">Current quantity: </string>
+    <string name="price">Price: </string>
+    <string name="category_name">Name:</string>
+    <string name="enter_current_quantity">Enter current quantity</string>
+    <string name="enter_product_name">Enter product name</string>
+    <string name="enter_product_price">Enter product price</string>
+    <string name="sold_quantity">Sold quantity:</string>
+    <string name="received_quantity">Received quantity:</string>
+    <string name="enter_received_quantity">Enter received quantity</string>
+    <string name="enter_sold_quantity">Enter sold quantity</string>
+    <string name="order_more">Order more</string>
+    <string name="delete_the_product">Delete the product</string>
+
+    <string name="detail_activity_title_new_product">Add a Product</string>
+    <string name="detail_activity_title_edit_product">Edit Product</string>
+    <string name="detail_new_product_requirement">Basic details are necessary. Please enter all of them.</string>
+    <string name="detail_quantity_isnt_enough">You can\'t sell more than you have</string>
+    <string name="detail_quantity_not_available">Not available</string>
+
+    <string name="editor_delete_product_successful">Product deleted</string>
+    <string name="editor_delete_product_failed">Error with deleting product</string>
+
+    <string name="editor_insert_product_successful">Product saved</string>
+    <string name="editor_insert_product_failed">Error with saving product</string>
+
+    <string name="editor_update_product_successful">Product updated</string>
+    <string name="editor_update_product_failed">Error with updating product</string>
+
+
+    <string name="delete_dialog_msg">Delete this product?</string>
+    <string name="delete_this_product">Delete this product?</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="save_new_product">Save new product</string>
+    <string name="default_value">1</string>
+    <string name="detail_layout_load">Load</string>
+    <string name="detail_layout_picture_is_not_available">Picture is not available</string>
+    <string name="load_picture_from_gallery">Load picture from gallery</string>
+    <string name="take_a_picture">Take a picture</string>
+    <string name="inventory_tracker_fragment">inventory_tracker_fragment</string>
+    <string name="inventory_detail_fragment">inventory_detail_fragment</string>
+    <string name="product_pic">Picture of product</string>
+    <string name="delete_all">Delete all</string>
+</resources>

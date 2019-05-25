@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+                name="dialogViewModel"
+                type="com.artf.inventoryapp.dialog.DialogViewModel"/>
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_picker_dialog"
+            android:orientation="vertical">
+
+        <Button
+                android:id="@+id/loadFromGallery"
+                android:onClick="@{() -> dialogViewModel.onRequestButtonClick(2)}"
+                android:layout_margin="@dimen/dialog_margin"
+                android:layout_weight="1"
+                android:textColor="@color/dark"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:background="@color/white"
+                android:stateListAnimator="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/load_picture_from_gallery"/>
+
+        <View android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="@color/dark"/>
+
+        <Button
+                android:id="@+id/takePicture"
+                android:onClick="@{() -> dialogViewModel.onRequestButtonClick(1)}"
+                android:layout_margin="@dimen/dialog_margin"
+                android:layout_weight="1"
+                android:textColor="@color/dark"
+                android:stateListAnimator="@null"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/take_a_picture"/>
+
+
+    </LinearLayout>
+</layout>
