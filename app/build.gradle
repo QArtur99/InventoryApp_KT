@@ -46,7 +46,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$version_room"
     kapt "androidx.room:room-compiler:$version_room"
 
-    // ViewModel, LiveData, Room
+    // ViewModel, LiveData
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 
     // Coroutines
@@ -59,6 +59,6 @@ dependencies {
 
     //Test
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }

@@ -64,4 +64,9 @@ class InventoryTrackerViewModel(
     fun onNavigatedToDetail() {
         _navigateToDetail.value = false
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 }

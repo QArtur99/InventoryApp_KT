@@ -42,9 +42,7 @@ class InventoryDetailFragment : Fragment() {
     private lateinit var dialogViewModel: DialogViewModel
 
     private lateinit var application: Application
-    private var imageUri: Uri? = null
-    private var currentProductUri: Uri? = null
-    private var currentPhotoPath: String = ""
+    private lateinit var currentPhotoPath: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -60,9 +58,9 @@ class InventoryDetailFragment : Fragment() {
         val viewModelFactory =
             InventoryDetailViewModelFactory(arguments.visibilityId, arguments.productId, dataSource, application)
 
-        val dialogviewModelFactory = DialogViewModelFactory()
-        val dialogViewModel =
-            ViewModelProviders.of(requireNotNull(activity), dialogviewModelFactory).get(DialogViewModel::class.java)
+        val dialogViewModelFactory = DialogViewModelFactory()
+        dialogViewModel =
+            ViewModelProviders.of(requireNotNull(activity), dialogViewModelFactory).get(DialogViewModel::class.java)
 
         inventoryDetailViewModel =
             ViewModelProviders.of(this, viewModelFactory).get(InventoryDetailViewModel::class.java)

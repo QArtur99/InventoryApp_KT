@@ -201,4 +201,9 @@ class InventoryDetailViewModel(
         _navigateToPictureDialog.value = false
     }
 
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 }
