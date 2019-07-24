@@ -38,32 +38,28 @@ import java.util.*
 
 class InventoryDetailFragment : Fragment() {
 
-    private lateinit var inventoryDetailViewModel: InventoryDetailViewModel
-    private lateinit var dialogViewModel: DialogViewModel
+    private val inventoryDetailViewModel by lazy {
+        application = requireNotNull(this.activity).application
+        val arguments = InventoryDetailFragmentArgs.fromBundle(arguments!!)
+        val dataSource = InventoryProductDatabase.getInstance(application).inventoryProductDatabaseDao
+        val viewModelFactory =
+            InventoryDetailViewModelFactory(arguments.visibilityId, arguments.productId, dataSource, application)
+        ViewModelProviders.of(this, viewModelFactory).get(InventoryDetailViewModel::class.java)
+    }
 
+    private val dialogViewModel by lazy {
+        val dialogViewModelFactory = DialogViewModelFactory()
+        ViewModelProviders.of(requireNotNull(activity), dialogViewModelFactory).get(DialogViewModel::class.java)
+    }
+
+    private lateinit var binding: FragmentInventoryDetailBinding
     private lateinit var application: Application
     private lateinit var currentPhotoPath: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-
-        val binding: FragmentInventoryDetailBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_inventory_detail, container, false
-        )
-
-        application = requireNotNull(this.activity).application
-        val arguments = InventoryDetailFragmentArgs.fromBundle(arguments!!)
-        val dataSource = InventoryProductDatabase.getInstance(application).inventoryProductDatabaseDao
-        val viewModelFactory =
-            InventoryDetailViewModelFactory(arguments.visibilityId, arguments.productId, dataSource, application)
-
-        val dialogViewModelFactory = DialogViewModelFactory()
-        dialogViewModel =
-            ViewModelProviders.of(requireNotNull(activity), dialogViewModelFactory).get(DialogViewModel::class.java)
-
-        inventoryDetailViewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(InventoryDetailViewModel::class.java)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_inventory_detail, container, false)
         binding.inventoryDetailViewModel = inventoryDetailViewModel
         binding.lifecycleOwner = this
 

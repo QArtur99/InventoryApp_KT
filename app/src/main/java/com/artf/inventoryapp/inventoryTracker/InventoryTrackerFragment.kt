@@ -20,22 +20,19 @@ import com.artf.inventoryapp.utils.Constants.Companion.NEW_PRODUCT
 
 class InventoryTrackerFragment : Fragment() {
 
-    private lateinit var inventoryTrackerViewModel: InventoryTrackerViewModel
+    private val inventoryTrackerViewModel by lazy {
+        val application = requireNotNull(this.activity).application
+        val dataSource = InventoryProductDatabase.getInstance(application).inventoryProductDatabaseDao
+        val viewModelFactory = InventoryTrackerViewModelFactory(dataSource, application)
+        ViewModelProviders.of(this, viewModelFactory).get(InventoryTrackerViewModel::class.java)
+    }
+
+    private lateinit var binding: FragmentInventoryTrackerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-
-        val binding: FragmentInventoryTrackerBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_inventory_tracker, container, false
-        )
-
-        val application = requireNotNull(this.activity).application
-        val dataSource = InventoryProductDatabase.getInstance(application).inventoryProductDatabaseDao
-        val viewModelFactory = InventoryTrackerViewModelFactory(dataSource, application)
-
-        inventoryTrackerViewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(InventoryTrackerViewModel::class.java)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_inventory_tracker, container, false)
         binding.inventoryTrackerViewModel = inventoryTrackerViewModel
         binding.lifecycleOwner = this
 
@@ -66,9 +63,7 @@ class InventoryTrackerFragment : Fragment() {
             }
         })
 
-
-        setRecyclerView(inventoryTrackerViewModel, binding, application)
-
+        setRecyclerView(inventoryTrackerViewModel, binding, requireNotNull(this.activity).application)
         setHasOptionsMenu(true)
         return binding.root
     }

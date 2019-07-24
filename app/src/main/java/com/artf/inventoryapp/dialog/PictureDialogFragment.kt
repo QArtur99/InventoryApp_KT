@@ -12,22 +12,21 @@ import com.artf.inventoryapp.databinding.DialogPictureBinding
 
 class PictureDialogFragment : DialogFragment() {
 
+    private val dialogViewModel by lazy {
+        val dialogViewModelFactory = DialogViewModelFactory()
+        ViewModelProviders.of(requireNotNull(activity), dialogViewModelFactory).get(DialogViewModel::class.java)
+    }
+
+    private lateinit var binding: DialogPictureBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-
-        val binding: DialogPictureBinding = DataBindingUtil.inflate(
-            inflater, R.layout.dialog_picture, container, false
-        )
-        requireNotNull(dialog?.window).setBackgroundDrawableResource(R.color.transparent)
-
-        val viewModelFactory = DialogViewModelFactory()
-        val dialogViewModel =
-            ViewModelProviders.of(requireNotNull(activity), viewModelFactory).get(DialogViewModel::class.java)
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_picture, container, false)
         binding.dialogViewModel = dialogViewModel
         binding.lifecycleOwner = this
 
+        requireNotNull(dialog?.window).setBackgroundDrawableResource(R.color.transparent)
         return binding.root
     }
 }

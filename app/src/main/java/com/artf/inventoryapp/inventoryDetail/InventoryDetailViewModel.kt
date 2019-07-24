@@ -63,8 +63,7 @@ class InventoryDetailViewModel(
     }
 
     private val _productImage = MutableLiveData<String>()
-    val productImage: LiveData<String>
-        get() = _productImage
+    val productImage: LiveData<String> = _productImage
 
     fun onProductImage(){
         _productImage.value = if (productImageString.isNotEmpty()) productImageString else product?.value?.productImage
@@ -151,8 +150,7 @@ class InventoryDetailViewModel(
     }
 
     private val _orderMore = MutableLiveData<Boolean>()
-    val orderMore: LiveData<Boolean>
-        get() = _orderMore
+    val orderMore: LiveData<Boolean> = _orderMore
 
     fun onOrderMore() {
         _orderMore.value = true
@@ -164,8 +162,7 @@ class InventoryDetailViewModel(
 
 
     private val _navigateToTracker = MutableLiveData<Boolean>()
-    val navigateToTracker: LiveData<Boolean>
-        get() = _navigateToTracker
+    val navigateToTracker: LiveData<Boolean> = _navigateToTracker
 
     fun onExitClicked() {
         _navigateToTracker.value = true
@@ -177,8 +174,7 @@ class InventoryDetailViewModel(
 
 
     private var _showSnackbarEvent = MutableLiveData<Int>()
-    val showSnackBarEvent: LiveData<Int>
-        get() = _showSnackbarEvent
+    val showSnackBarEvent: LiveData<Int> = _showSnackbarEvent
 
     fun onShowSnackbar(eventId: Int) {
         _showSnackbarEvent.value = eventId
@@ -188,10 +184,8 @@ class InventoryDetailViewModel(
         _showSnackbarEvent.value = -1
     }
 
-
     private val _navigateToPictureDialog = MutableLiveData<Boolean>()
-    val navigateToPictureDialog: LiveData<Boolean>
-        get() = _navigateToPictureDialog
+    val navigateToPictureDialog: LiveData<Boolean> = _navigateToPictureDialog
 
     fun onLoadImage() {
         _navigateToPictureDialog.value = true
@@ -200,7 +194,6 @@ class InventoryDetailViewModel(
     fun onNavigatedToPictureDialog() {
         _navigateToPictureDialog.value = false
     }
-
 
     override fun onCleared() {
         super.onCleared()

@@ -24,8 +24,7 @@ class InventoryTrackerViewModel(
 
 
     private val _navigateToDetailFragment = MutableLiveData<Long>()
-    val navigateToDetailFragment
-        get() = _navigateToDetailFragment
+    val navigateToDetailFragment: LiveData<Long> = _navigateToDetailFragment
 
     fun onInventoryProductClicked(id: Long) {
         _navigateToDetailFragment.value = id
@@ -42,20 +41,17 @@ class InventoryTrackerViewModel(
         }
     }
 
-    fun onDeleteAll(){
+    fun onDeleteAll() {
         uiScope.launch {
             inventoryRepository.clear()
         }
     }
 
     val products = inventoryRepository.getAllProducts()
-    val isProductListEmpty = Transformations.map(products) {
-        it?.isEmpty()
-    }!!
+    val isProductListEmpty = Transformations.map(products) { it?.isEmpty() }!!
 
     private val _navigateToDetail = MutableLiveData<Boolean>()
-    val navigateToDetail: LiveData<Boolean>
-        get() = _navigateToDetail
+    val navigateToDetail: LiveData<Boolean> = _navigateToDetail
 
     fun onFabClicked() {
         _navigateToDetail.value = true

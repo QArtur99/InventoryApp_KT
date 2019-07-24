@@ -7,8 +7,7 @@ import com.artf.inventoryapp.utils.Constants
 
 class DialogViewModel : ViewModel(){
     private val _requestId= MutableLiveData<Int>()
-    val request: LiveData<Int>
-        get() = _requestId
+    val request: LiveData<Int> = _requestId
 
     fun onRequestButtonClick(requestId : Int) {
         _requestId.value = requestId
