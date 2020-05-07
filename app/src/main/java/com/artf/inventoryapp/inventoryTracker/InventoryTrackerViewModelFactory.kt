@@ -6,13 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.artf.inventoryapp.database.InventoryProductDatabaseDao
 
 class InventoryTrackerViewModelFactory(
-    private val dataSource: InventoryProductDatabaseDao,
-    private val application: Application
+    private val dataSource: InventoryProductDatabaseDao
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(InventoryTrackerViewModel::class.java)) {
-            return InventoryTrackerViewModel(dataSource, application) as T
+            return InventoryTrackerViewModel(dataSource) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 private val ITEM_VIEW_TYPE_HEADER = 0
 private val ITEM_VIEW_TYPE_ITEM = 1
 
-class InventoryAdapter(val clickListener: InventoryListener) : ListAdapter<DataItem,
+class InventoryAdapter(private val clickListener: InventoryListener) : ListAdapter<DataItem,
         RecyclerView.ViewHolder>(InventoryDiffCallback()) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)

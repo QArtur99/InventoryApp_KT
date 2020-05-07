@@ -22,8 +22,9 @@ class InventoryTrackerFragment : Fragment() {
 
     private val inventoryTrackerViewModel by lazy {
         val application = requireNotNull(this.activity).application
-        val dataSource = InventoryProductDatabase.getInstance(application).inventoryProductDatabaseDao
-        val viewModelFactory = InventoryTrackerViewModelFactory(dataSource, application)
+        val dataSource =
+            InventoryProductDatabase.getInstance(application).inventoryProductDatabaseDao
+        val viewModelFactory = InventoryTrackerViewModelFactory(dataSource)
         ViewModelProviders.of(this, viewModelFactory).get(InventoryTrackerViewModel::class.java)
     }
 
@@ -32,12 +33,13 @@ class InventoryTrackerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_inventory_tracker, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_inventory_tracker, container, false)
         binding.inventoryTrackerViewModel = inventoryTrackerViewModel
         binding.lifecycleOwner = this
 
         inventoryTrackerViewModel.navigateToDetail.observe(viewLifecycleOwner,
-            Observer<Boolean> { shouldNavigate ->
+            Observer { shouldNavigate ->
                 if (shouldNavigate == true) {
                     this.findNavController().navigate(
                         InventoryTrackerFragmentDirections.actionHomeFragmentToDetailFragment(
@@ -63,7 +65,11 @@ class InventoryTrackerFragment : Fragment() {
             }
         })
 
-        setRecyclerView(inventoryTrackerViewModel, binding, requireNotNull(this.activity).application)
+        setRecyclerView(
+            inventoryTrackerViewModel,
+            binding,
+            requireActivity().application
+        )
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -101,14 +107,14 @@ class InventoryTrackerFragment : Fragment() {
         })
 
         inventoryTrackerViewModel.products.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.addHeaderAndSubmitList(it)
-            }
+            it?.let { adapter.addHeaderAndSubmitList(it) }
         })
 
         binding.productList.layoutManager = manager
         binding.productList.adapter = adapter
-        binding.productList.addItemDecoration(DividerItemDecoration(application, DividerItemDecoration.VERTICAL))
+        binding.productList.addItemDecoration(
+            DividerItemDecoration(application, DividerItemDecoration.VERTICAL)
+        )
     }
 
 }

@@ -14,8 +14,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class InventoryTrackerViewModel(
-    val productDatabase: InventoryProductDatabaseDao,
-    application: Application?
+    private val productDatabase: InventoryProductDatabaseDao
 ) : ViewModel() {
 
     private var viewModelJob = Job()
@@ -48,7 +47,7 @@ class InventoryTrackerViewModel(
     }
 
     val products = inventoryRepository.getAllProducts()
-    val isProductListEmpty = Transformations.map(products) { it?.isEmpty() }!!
+    val isProductListEmpty = Transformations.map(products) { it?.isEmpty() }
 
     private val _navigateToDetail = MutableLiveData<Boolean>()
     val navigateToDetail: LiveData<Boolean> = _navigateToDetail

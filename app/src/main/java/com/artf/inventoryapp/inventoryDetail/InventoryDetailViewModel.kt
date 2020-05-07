@@ -17,8 +17,7 @@ import kotlinx.coroutines.launch
 class InventoryDetailViewModel(
     val visibilityId: Int?,
     private val productId: Long?,
-    private val productDatabase: InventoryProductDatabaseDao?,
-    private val application: Application?
+    private val productDatabase: InventoryProductDatabaseDao?
 ) : ViewModel() {
 
     private var viewModelJob = Job()
@@ -28,7 +27,7 @@ class InventoryDetailViewModel(
     var product = productId?.let { inventoryRepository?.getProductWithId(it) }
 
     private var actionIdLiveData = MutableLiveData<Int?>().apply { setValue(visibilityId) }
-    val editViewVisibility = Transformations.map(actionIdLiveData) { it != 0 }!!
+    val editViewVisibility = Transformations.map(actionIdLiveData) { it != 0 }
 
 
     var productName: String = ""

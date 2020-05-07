@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.artf.inventoryapp.R
-import com.artf.inventoryapp.database.InventoryProduct
 import com.artf.inventoryapp.database.InventoryProductDatabase
 import com.artf.inventoryapp.databinding.FragmentInventoryDetailBinding
 import com.artf.inventoryapp.dialog.DialogViewModel
@@ -41,15 +40,20 @@ class InventoryDetailFragment : Fragment() {
     private val inventoryDetailViewModel by lazy {
         application = requireNotNull(this.activity).application
         val arguments = InventoryDetailFragmentArgs.fromBundle(arguments!!)
-        val dataSource = InventoryProductDatabase.getInstance(application).inventoryProductDatabaseDao
-        val viewModelFactory =
-            InventoryDetailViewModelFactory(arguments.visibilityId, arguments.productId, dataSource, application)
+        val dataSource =
+            InventoryProductDatabase.getInstance(application).inventoryProductDatabaseDao
+        val viewModelFactory = InventoryDetailViewModelFactory(
+            arguments.visibilityId,
+            arguments.productId,
+            dataSource
+        )
         ViewModelProviders.of(this, viewModelFactory).get(InventoryDetailViewModel::class.java)
     }
 
     private val dialogViewModel by lazy {
         val dialogViewModelFactory = DialogViewModelFactory()
-        ViewModelProviders.of(requireNotNull(activity), dialogViewModelFactory).get(DialogViewModel::class.java)
+        ViewModelProviders.of(requireNotNull(activity), dialogViewModelFactory)
+            .get(DialogViewModel::class.java)
     }
 
     private lateinit var binding: FragmentInventoryDetailBinding
@@ -59,14 +63,14 @@ class InventoryDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_inventory_detail, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_inventory_detail, container, false)
         binding.inventoryDetailViewModel = inventoryDetailViewModel
         binding.lifecycleOwner = this
 
         inventoryDetailViewModel.navigateToTracker.observe(viewLifecycleOwner,
-            Observer<Boolean> { shouldNavigate ->
+            Observer { shouldNavigate ->
                 if (shouldNavigate == true) {
-
                     val navController = binding.root.findNavController()
                     navController.navigate(InventoryDetailFragmentDirections.actionInventoryDetailFragmentToInventoryTrackerFragment())
                     inventoryDetailViewModel.onNavigatedToTracker()
@@ -74,29 +78,25 @@ class InventoryDetailFragment : Fragment() {
             })
 
         inventoryDetailViewModel.navigateToPictureDialog.observe(viewLifecycleOwner,
-            Observer<Boolean> { shouldNavigate ->
+            Observer { shouldNavigate ->
                 if (shouldNavigate == true) {
                     val navController = binding.root.findNavController()
-                    navController.navigate(
-                        InventoryDetailFragmentDirections.actionToPictureDialogFragment()
-                    )
+                    navController.navigate(InventoryDetailFragmentDirections.actionToPictureDialogFragment())
                     inventoryDetailViewModel.onNavigatedToPictureDialog()
                 }
             })
 
         inventoryDetailViewModel.navigateToConfirmationDialog.observe(viewLifecycleOwner,
-            Observer<Boolean> { shouldNavigate ->
+            Observer { shouldNavigate ->
                 if (shouldNavigate == true) {
                     val navController = binding.root.findNavController()
-                    navController.navigate(
-                        InventoryDetailFragmentDirections.actionToConfirmationDialogFragment()
-                    )
+                    navController.navigate(InventoryDetailFragmentDirections.actionToConfirmationDialogFragment())
                     inventoryDetailViewModel.onNavigatedToConfirmationDialog()
                 }
             })
 
         dialogViewModel.request.observe(viewLifecycleOwner,
-            Observer<Int> { requestId ->
+            Observer { requestId ->
                 if (requestId != Constants.REQUEST_NULL) {
                     when (requestId) {
                         REQUEST_CAMERA -> {
@@ -135,20 +135,23 @@ class InventoryDetailFragment : Fragment() {
         })
 
         inventoryDetailViewModel.orderMore.observe(viewLifecycleOwner,
-            Observer<Boolean> { shouldNavigate ->
+            Observer { shouldNavigate ->
                 if (shouldNavigate == true) {
                     val productName = inventoryDetailViewModel.product?.value?.productName
                     val intent = Intent(Intent.ACTION_SENDTO)
                     intent.type = "text/plain"
                     intent.data = Uri.parse("mailto:")
                     intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("ruacalendarpro@gmail.com"))
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "We would like to order more $productName")
+                    intent.putExtra(
+                        Intent.EXTRA_SUBJECT,
+                        "We would like to order more $productName"
+                    )
                     startActivity(intent)
                     inventoryDetailViewModel.onOrderedMore()
                 }
             })
 
-        inventoryDetailViewModel.product?.observe(viewLifecycleOwner, Observer<InventoryProduct> { inventoryProduct ->
+        inventoryDetailViewModel.product?.observe(viewLifecycleOwner, Observer { inventoryProduct ->
             inventoryProduct?.let {
                 if (!inventoryProduct.productImage.equals(inventoryDetailViewModel.productImage)) {
                     inventoryDetailViewModel.onProductImage()
@@ -160,7 +163,8 @@ class InventoryDetailFragment : Fragment() {
     }
 
     private fun getPicFromGallery() {
-        val takePictureIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        val takePictureIntent =
+            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(takePictureIntent, REQUEST_GALLERY)
     }
 
